@@ -1,21 +1,10 @@
-var socket = new WebSocket('ws://127.0.0.1:8765');  
-
-
-
+socket =new WebSocket('ws://127.0.0.1:8765');
 DATA_BUFFER='';
 TRANSFER_SIZE=1024;
 
 // 连接建立时触发  
 socket.onopen = function(event) {  
     console.log('Connected to server!');
-    DATA_BUFFER=JSON.stringify({ 'message':{
-        'height': 768,
-        'width': 576,
-        'prompt': '一只梵高画的猫',
-        'styleConfig': '55c682d5eeca50d4806fd1cba3628781'
-        }})
-    socket.send('wst_img');
-
 }; 
 // 接收到来自服务器的消息时触发  
 socket.onmessage = function(event) {  

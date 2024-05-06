@@ -1,9 +1,10 @@
 <template>
   <div id="app">
-    <nav>
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </nav>
+    <div id="带更改的robot">
+      <ul>
+        动画交互区
+      </ul>
+    </div>
     <router-view/>
   </div>
 </template>
@@ -28,5 +29,13 @@ nav a {
 
 nav a.router-link-exact-active {
   color: #42b983;
+}
+
+/********************************/
+
+#带更改的robot {
+  height: 200px;
+  font-size:50px;
+  background-color: #42b983;
 }
 </style>
