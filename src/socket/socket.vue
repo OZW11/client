@@ -1,26 +1,41 @@
-socket =new WebSocket('ws://127.0.0.1:8765');
-DATA_BUFFER='';
-TRANSFER_SIZE=1024;
+<template>
+<div class="home">
+    <div>
+    </div>
+</div>
+</template>
 
+<script>
+export default {
+    name: 'Mysocket',
+    data() {
+        return {
+            socket: null,
+            DATA_BUFFER: '',
+            TRANSFER_SIZE: 1024
+        }
+    },
+    created() {
+this.socket =new WebSocket('ws://127.0.0.1:8765');
+this.DATA_BUFFER='';
+this.TRANSFER_SIZE=1024;
 // 连接建立时触发  
-socket.onopen = function(event) {  
+this.socket.onopen = function(event) {  
     console.log('Connected to server!');
 }; 
 // 接收到来自服务器的消息时触发  
-socket.onmessage = function(event) {  
+this.socket.onmessage = function(event) {  
     console.log('Message from server: ', event.data); 
     // 从服务器收到READY__代表正在经行大量数据传输，执行对应逻辑
     if(event.data == 'READY__' && DATA_BUFFER == '')
     {
+        
         socket.send('message_have_sent_done');
     }
     else if(event.data == 'READY__')
     {
         MY_SOCKET_sender();
     }
-    
-    
-
     if(event.data.length > 11 )
     {
         if(event.data.slice(0,11) == 'CHAT_RETURN')
@@ -176,3 +191,7 @@ function MY_SOCKET_sender()
 // //     var message = document.getElementById('message-input').value;  
 // //     socket.send(message);  
 // // });
+    },
+}
+
+</script>
