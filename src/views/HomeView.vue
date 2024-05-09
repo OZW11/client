@@ -1,8 +1,6 @@
 <template>
   <div class="home">
-    <div>
-      <MainProgram/>
-    </div>
+    <MainProgram/>
   </div>
 </template>
 
@@ -21,12 +19,5 @@ export default {
 
 <style>
 
-/****************************************/
-.home {
-  display: flex ;
-  background-color: #0fec55;
-  height: 600px;
-  justify-content: center;
-  align-items: center;
-}
+
 </style>

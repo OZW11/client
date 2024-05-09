@@ -1,11 +1,10 @@
 <template>
-  <div class="hello">
-    这是按键交互区
+  <div class="but">
     <Mybutton MyName='chat' MyEvent='chat' @chat="chat"/>
     <Mybutton MyName='wst_img' MyEvent="wst_img" @wst_img="wst_img"/>
-    <img :src="Myimg.url" alt="NONE">
+    <img :src="Myimg.url" alt="NONE" width="300" height="300">
     <Mysocket />
-  </div> 
+  </div>
 </template>
 
 <script>
@@ -118,20 +117,13 @@ export default {
 
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
-h3 {
-  margin: 40px 0 0;
-}
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-a {
-  color: #42b983;
-}
+<style>
+  .but{
+    
+  }
+   #img{
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 5px;
+   } 
 </style>
