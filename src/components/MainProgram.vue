@@ -52,7 +52,7 @@ export default {
         'height': 768,
         'width': 576,
         'prompt': mess,
-        'styleConfig': '55c682d5eeca50d4806fd1cba3628781'
+        'styleConfig': '8fe3d641be3e589dad231dc6c3b1429a'
         }})
         this.socket.send('wst_img');
       },
@@ -117,7 +117,7 @@ export default {
       this.MybuttonAnimationMove("wst_img_button_choose_English_words_Dance","anyevent",240,800);
       this.MybuttonAnimationMove("wst_img_button_choose_English_words_Sing","anyevent",-240,1600);
       this.MybuttonAnimationMove("wst_img_button_choose_English_words_Play","anyevent",240,400);   
-      let StringSend=this.img_mess['character'] +" "+this.img_mess['place']+" "+this.img_mess['event'];
+      let StringSend="用一下关键词画一幅小朋友喜欢的画 "+this.img_mess['character'] +" "+this.img_mess['place']+" "+this.img_mess['event'];
       console.log(StringSend);
       this.wst_img(StringSend);
     }
