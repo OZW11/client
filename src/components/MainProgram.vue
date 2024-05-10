@@ -1,13 +1,21 @@
 <template>
   <div class="but">
-    <Mybutton MyName='chat' MyEvent='chat' @chat="chat"/>
-    <Mybutton MyName='wst_img' MyEvent="wst_img" @wst_img="wst_img"/>
-    <img :src="Myimg.url" alt="NONE" width="300" height="300">
-    <Mysocket />
+    <Mybutton ref="chat_button" MyName='chat' MyEvent='chat' @chat="chat"/>
+    <Mybutton ref="wst_img_button" MyName='wst_img' MyEvent="wst_img_buttonClick" @wst_img_buttonClick="chooseEnglishWord_character"/>
+    <Mybutton ref="wst_img_button_choose_English_words_Chicken" MyName='Chicken' MyEvent="chooseEnglishWord_character" @chooseEnglishWord_character="chooseEnglishWord_place('Chicken')"/>    
+    <Mybutton ref="wst_img_button_choose_English_words_Cow" MyName='Cow' MyEvent="chooseEnglishWord_character" @chooseEnglishWord_character="chooseEnglishWord_place('Cow')"/>    
+    <Mybutton ref="wst_img_button_choose_English_words_Lion" MyName='Lion' MyEvent="chooseEnglishWord_character" @chooseEnglishWord_character="chooseEnglishWord_place('Lion')"/>    
+    <Mybutton ref="wst_img_button_choose_English_words_Forest" MyName='Forest' MyEvent="chooseEnglishWord_place" @chooseEnglishWord_place="chooseEnglishWord_event('Forest')"/>    
+    <Mybutton ref="wst_img_button_choose_English_words_Lawn" MyName='Lawn' MyEvent="chooseEnglishWord_place" @chooseEnglishWord_place="chooseEnglishWord_event('Lawn')"/>   
+    <Mybutton ref="wst_img_button_choose_English_words_Dance" MyName='Dance' MyEvent="chooseEnglishWord_event" @chooseEnglishWord_event="chooseEnglishWord_final('Dance')"/>    
+    <Mybutton ref="wst_img_button_choose_English_words_Sing" MyName='Sing' MyEvent="chooseEnglishWord_event" @chooseEnglishWord_event="chooseEnglishWord_final('Sing')"/>    
+    <Mybutton ref="wst_img_button_choose_English_words_Play" MyName='Play' MyEvent="chooseEnglishWord_event" @chooseEnglishWord_event="chooseEnglishWord_final('Play')"/>  
+    <img v-if="Myimg.state" :src="Myimg.url"  alt="NONE" width="300" height="300">
   </div>
 </template>
 
 <script>
+import anime from 'animejs'
 import Mybutton from './Mybutton.vue'
 export default {
   name: 'MainProgram',
@@ -19,20 +27,35 @@ export default {
       Myimg:{ url:'' ,state: false},
       socket: null,
       DATA_BUFFER: '',
-      TRANSFER_SIZE: 1024
+      TRANSFER_SIZE: 1024,
+      img_mess: {'character':'','place':'','event':''},
     }
   },
   methods: {
-    'wst_img': function(){
+    // ***************交互动画方法*****************
+    'MybuttonAnimationMove': function(MyName,MyEvent,tX,Duration){
+      let Mybutton = this.$refs[MyName];
+      
+      anime({
+        targets: Mybutton.$el,
+        translateX: tX,
+        duration: Duration,
+        easing: 'easeOutExpo',
+        complete: function() {
+        Mybutton.$emit(MyEvent);
+        }
+      });
+    },
+    // ***************通讯与用户事件逻辑处理方法*****************
+    'wst_img': function(mess){
       this.DATA_BUFFER=JSON.stringify({ 'message':{
         'height': 768,
         'width': 576,
-        'prompt': '一只梵高画的猫',
+        'prompt': mess,
         'styleConfig': '55c682d5eeca50d4806fd1cba3628781'
         }})
         this.socket.send('wst_img');
-
-    },
+      },
     'chat':function(){
       this.DATA_BUFFER=JSON.stringify({ 'message':  [
         {
@@ -58,8 +81,60 @@ export default {
         ]})
     this.socket.send('chat');      
     },
+    //**********************逻辑处理方法**************************************************************************
+    chooseEnglishWord_character: function(mess){
+      console.log(this.img_mess);
+      this.MybuttonAnimationMove("wst_img_button","anyevent",400,1500);
+      this.MybuttonAnimationMove("chat_button","anyevent",-400,1500);
+      console.log("chooseEnglishWord_character");
+      this.MybuttonAnimationMove("wst_img_button_choose_English_words_Chicken","anyevent",40,1400);
+      this.MybuttonAnimationMove("wst_img_button_choose_English_words_Cow","anyevent",40,1800);
+      this.MybuttonAnimationMove("wst_img_button_choose_English_words_Lion","anyevent",40,400);
+    },
+    chooseEnglishWord_place: function(mess){
+      this.img_mess['character'] = mess;
+      console.log(this.img_mess['character']);
+      console.log('chooseEnglishWord_place');
+      this.MybuttonAnimationMove("wst_img_button_choose_English_words_Chicken","anyevent",240,400);
+      this.MybuttonAnimationMove("wst_img_button_choose_English_words_Cow","anyevent",-240,1000);
+      this.MybuttonAnimationMove("wst_img_button_choose_English_words_Lion","anyevent",240,1600);
+      this.MybuttonAnimationMove("wst_img_button_choose_English_words_Forest","anyevent",30,400);
+      this.MybuttonAnimationMove("wst_img_button_choose_English_words_Lawn","anyevent",35,800);
+    },
+    chooseEnglishWord_event: function(mess){
+      this.img_mess['place'] = mess;
+      console.log(this.img_mess['place']);
+      console.log('chooseEnglishWord_event');
+      this.MybuttonAnimationMove("wst_img_button_choose_English_words_Forest","anyevent",-240,1600);
+      this.MybuttonAnimationMove("wst_img_button_choose_English_words_Lawn","anyevent",350,800);
+      this.MybuttonAnimationMove("wst_img_button_choose_English_words_Dance","anyevent",-20,800);
+      this.MybuttonAnimationMove("wst_img_button_choose_English_words_Sing","anyevent",35,1600);
+      this.MybuttonAnimationMove("wst_img_button_choose_English_words_Play","anyevent",10,400);   
+    },
+    chooseEnglishWord_final: function(mess){
+      this.img_mess['event'] = mess;
+      console.log(this.img_mess['event']);
+      this.MybuttonAnimationMove("wst_img_button_choose_English_words_Dance","anyevent",240,800);
+      this.MybuttonAnimationMove("wst_img_button_choose_English_words_Sing","anyevent",-240,1600);
+      this.MybuttonAnimationMove("wst_img_button_choose_English_words_Play","anyevent",240,400);   
+      let StringSend=this.img_mess['character'] +" "+this.img_mess['place']+" "+this.img_mess['event'];
+      console.log(StringSend);
+      this.wst_img(StringSend);
+    }
   },
+
+  
   mounted() {
+    //
+    this.MybuttonAnimationMove("wst_img_button_choose_English_words_Chicken","anyevent",-500,1);
+    this.MybuttonAnimationMove("wst_img_button_choose_English_words_Cow","anyevent",500,1);
+    this.MybuttonAnimationMove("wst_img_button_choose_English_words_Lion","anyevent",-500,1);
+    this.MybuttonAnimationMove("wst_img_button_choose_English_words_Forest","anyevent",240,1);
+    this.MybuttonAnimationMove("wst_img_button_choose_English_words_Lawn","anyevent",240,1);
+    this.MybuttonAnimationMove("wst_img_button_choose_English_words_Dance","anyevent",-500,1);
+    this.MybuttonAnimationMove("wst_img_button_choose_English_words_Sing","anyevent",240,1);
+    this.MybuttonAnimationMove("wst_img_button_choose_English_words_Play","anyevent",240,1);    
+    //
   this.socket =new WebSocket('ws://127.0.0.1:8765');
   this.DATA_BUFFER='';
   this.TRANSFER_SIZE=1024;
@@ -107,6 +182,8 @@ export default {
           {
             console.log(event.data.slice(14,event.data.length));
             this.Myimg.url=event.data.slice(14,event.data.length);
+            this.Myimg.state=true;
+
           }
       }
     
