@@ -1,15 +1,15 @@
 <template>
   <div class="but">
     <Mybutton ref="chat_button" MyName='chat' MyEvent='chat' @chat="chat"/>
-    <Mybutton ref="wst_img_button" MyName='wst_img' MyEvent="wst_img_buttonClick" @wst_img_buttonClick="chooseEnglishWord_character"/>
-    <Mybutton ref="wst_img_button_choose_English_words_Chicken" MyName='Chicken' MyEvent="chooseEnglishWord_character" @chooseEnglishWord_character="chooseEnglishWord_place('Chicken')"/>    
-    <Mybutton ref="wst_img_button_choose_English_words_Cow" MyName='Cow' MyEvent="chooseEnglishWord_character" @chooseEnglishWord_character="chooseEnglishWord_place('Cow')"/>    
-    <Mybutton ref="wst_img_button_choose_English_words_Lion" MyName='Lion' MyEvent="chooseEnglishWord_character" @chooseEnglishWord_character="chooseEnglishWord_place('Lion')"/>    
-    <Mybutton ref="wst_img_button_choose_English_words_Forest" MyName='Forest' MyEvent="chooseEnglishWord_place" @chooseEnglishWord_place="chooseEnglishWord_event('Forest')"/>    
-    <Mybutton ref="wst_img_button_choose_English_words_Lawn" MyName='Lawn' MyEvent="chooseEnglishWord_place" @chooseEnglishWord_place="chooseEnglishWord_event('Lawn')"/>   
-    <Mybutton ref="wst_img_button_choose_English_words_Dance" MyName='Dance' MyEvent="chooseEnglishWord_event" @chooseEnglishWord_event="chooseEnglishWord_final('Dance')"/>    
-    <Mybutton ref="wst_img_button_choose_English_words_Sing" MyName='Sing' MyEvent="chooseEnglishWord_event" @chooseEnglishWord_event="chooseEnglishWord_final('Sing')"/>    
-    <Mybutton ref="wst_img_button_choose_English_words_Play" MyName='Play' MyEvent="chooseEnglishWord_event" @chooseEnglishWord_event="chooseEnglishWord_final('Play')"/>  
+    <Mybutton ref="wst_img_button" MyName='wst_img' v-if="buttonState" MyEvent="wst_img_buttonClick" @wst_img_buttonClick="chooseEnglishWord_character" />
+    <Mybutton ref="wst_img_button_choose_English_words_Chicken" v-if="buttonState" MyName='Chicken' MyEvent="chooseEnglishWord_character" @chooseEnglishWord_character="chooseEnglishWord_place('Chicken')"/>    
+    <Mybutton ref="wst_img_button_choose_English_words_Cow" MyName='Cow' v-if="buttonState" MyEvent="chooseEnglishWord_character" @chooseEnglishWord_character="chooseEnglishWord_place('Cow')"/>    
+    <Mybutton ref="wst_img_button_choose_English_words_Lion" MyName='Lion' v-if="buttonState" MyEvent="chooseEnglishWord_character" @chooseEnglishWord_character="chooseEnglishWord_place('Lion')"/>    
+    <Mybutton ref="wst_img_button_choose_English_words_Forest" MyName='Forest' v-if="buttonState" MyEvent="chooseEnglishWord_place" @chooseEnglishWord_place="chooseEnglishWord_event('Forest')"/>    
+    <Mybutton ref="wst_img_button_choose_English_words_Lawn" MyName='Lawn' v-if="buttonState" MyEvent="chooseEnglishWord_place" @chooseEnglishWord_place="chooseEnglishWord_event('Lawn')"/>   
+    <Mybutton ref="wst_img_button_choose_English_words_Dance" MyName='Dance' v-if="buttonState" MyEvent="chooseEnglishWord_event" @chooseEnglishWord_event="chooseEnglishWord_final('Dance')"/>    
+    <Mybutton ref="wst_img_button_choose_English_words_Sing" MyName='Sing' v-if="buttonState" MyEvent="chooseEnglishWord_event" @chooseEnglishWord_event="chooseEnglishWord_final('Sing')"/>    
+    <Mybutton ref="wst_img_button_choose_English_words_Play" MyName='Play' v-if="buttonState" MyEvent="chooseEnglishWord_event" @chooseEnglishWord_event="chooseEnglishWord_final('Play')"/>  
     <img v-if="Myimg.state" :src="Myimg.url"  alt="NONE" width="300" height="300">
   </div>
 </template>
@@ -29,6 +29,7 @@ export default {
       DATA_BUFFER: '',
       TRANSFER_SIZE: 1024,
       img_mess: {'character':'','place':'','event':''},
+      buttonState: true
     }
   },
   methods: {
@@ -183,7 +184,7 @@ export default {
             console.log(event.data.slice(14,event.data.length));
             this.Myimg.url=event.data.slice(14,event.data.length);
             this.Myimg.state=true;
-
+            this.buttonState=false;
           }
       }
     

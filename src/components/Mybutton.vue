@@ -10,7 +10,7 @@
     
       </svg>
       <span class="now">now!</span>
-      <span class="play">play</span>  
+      <span class="play">{{MyName}}</span>  
       </button>    
 </template>
 
