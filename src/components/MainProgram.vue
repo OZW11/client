@@ -10,7 +10,7 @@
     <Mybutton ref="wst_img_button_choose_English_words_Dance" MyName='Dance' v-if="buttonState" MyEvent="chooseEnglishWord_event" @chooseEnglishWord_event="chooseEnglishWord_final('Dance')"/>    
     <Mybutton ref="wst_img_button_choose_English_words_Sing" MyName='Sing' v-if="buttonState" MyEvent="chooseEnglishWord_event" @chooseEnglishWord_event="chooseEnglishWord_final('Sing')"/>    
     <Mybutton ref="wst_img_button_choose_English_words_Play" MyName='Play' v-if="buttonState" MyEvent="chooseEnglishWord_event" @chooseEnglishWord_event="chooseEnglishWord_final('Play')"/>  
-    <img v-if="Myimg.state" :src="Myimg.url"  alt="NONE" width="300" height="300">
+    <img id='AIGC' v-if="Myimg.state" :src="Myimg.url"  alt="NONE" width="300" height="300">
   </div>
 </template>
 
@@ -85,39 +85,39 @@ export default {
     //**********************逻辑处理方法**************************************************************************
     chooseEnglishWord_character: function(mess){
       console.log(this.img_mess);
-      this.MybuttonAnimationMove("wst_img_button","anyevent",400,1500);
-      this.MybuttonAnimationMove("chat_button","anyevent",-400,1500);
+      this.MybuttonAnimationMove("wst_img_button","anyevent",400,500);
+      this.MybuttonAnimationMove("chat_button","anyevent",-400,500);
       console.log("chooseEnglishWord_character");
-      this.MybuttonAnimationMove("wst_img_button_choose_English_words_Chicken","anyevent",40,1400);
-      this.MybuttonAnimationMove("wst_img_button_choose_English_words_Cow","anyevent",40,1800);
-      this.MybuttonAnimationMove("wst_img_button_choose_English_words_Lion","anyevent",40,400);
+      this.MybuttonAnimationMove("wst_img_button_choose_English_words_Chicken","anyevent",0,500);
+      this.MybuttonAnimationMove("wst_img_button_choose_English_words_Cow","anyevent",10,700);
+      this.MybuttonAnimationMove("wst_img_button_choose_English_words_Lion","anyevent",0,400);
     },
     chooseEnglishWord_place: function(mess){
       this.img_mess['character'] = mess;
       console.log(this.img_mess['character']);
       console.log('chooseEnglishWord_place');
-      this.MybuttonAnimationMove("wst_img_button_choose_English_words_Chicken","anyevent",240,400);
-      this.MybuttonAnimationMove("wst_img_button_choose_English_words_Cow","anyevent",-240,1000);
-      this.MybuttonAnimationMove("wst_img_button_choose_English_words_Lion","anyevent",240,1600);
-      this.MybuttonAnimationMove("wst_img_button_choose_English_words_Forest","anyevent",30,400);
-      this.MybuttonAnimationMove("wst_img_button_choose_English_words_Lawn","anyevent",35,800);
+      this.MybuttonAnimationMove("wst_img_button_choose_English_words_Chicken","anyevent",300,400);
+      this.MybuttonAnimationMove("wst_img_button_choose_English_words_Cow","anyevent",-400,600);
+      this.MybuttonAnimationMove("wst_img_button_choose_English_words_Lion","anyevent",400,700);
+      this.MybuttonAnimationMove("wst_img_button_choose_English_words_Forest","anyevent",0,500);
+      this.MybuttonAnimationMove("wst_img_button_choose_English_words_Lawn","anyevent",15,400);
     },
     chooseEnglishWord_event: function(mess){
       this.img_mess['place'] = mess;
       console.log(this.img_mess['place']);
       console.log('chooseEnglishWord_event');
-      this.MybuttonAnimationMove("wst_img_button_choose_English_words_Forest","anyevent",-240,1600);
-      this.MybuttonAnimationMove("wst_img_button_choose_English_words_Lawn","anyevent",350,800);
-      this.MybuttonAnimationMove("wst_img_button_choose_English_words_Dance","anyevent",-20,800);
-      this.MybuttonAnimationMove("wst_img_button_choose_English_words_Sing","anyevent",35,1600);
+      this.MybuttonAnimationMove("wst_img_button_choose_English_words_Forest","anyevent",-300,600);
+      this.MybuttonAnimationMove("wst_img_button_choose_English_words_Lawn","anyevent",400,500);
+      this.MybuttonAnimationMove("wst_img_button_choose_English_words_Dance","anyevent",-20,400);
+      this.MybuttonAnimationMove("wst_img_button_choose_English_words_Sing","anyevent",35,600);
       this.MybuttonAnimationMove("wst_img_button_choose_English_words_Play","anyevent",10,400);   
     },
     chooseEnglishWord_final: function(mess){
       this.img_mess['event'] = mess;
       console.log(this.img_mess['event']);
-      this.MybuttonAnimationMove("wst_img_button_choose_English_words_Dance","anyevent",240,800);
-      this.MybuttonAnimationMove("wst_img_button_choose_English_words_Sing","anyevent",-240,1600);
-      this.MybuttonAnimationMove("wst_img_button_choose_English_words_Play","anyevent",240,400);   
+      this.MybuttonAnimationMove("wst_img_button_choose_English_words_Dance","anyevent",400,700);
+      this.MybuttonAnimationMove("wst_img_button_choose_English_words_Sing","anyevent",-300,500);
+      this.MybuttonAnimationMove("wst_img_button_choose_English_words_Play","anyevent",400,400);   
       let StringSend="用一下关键词画一幅小朋友喜欢的画 "+this.img_mess['character'] +" "+this.img_mess['place']+" "+this.img_mess['event'];
       console.log(StringSend);
       this.wst_img(StringSend);
@@ -130,11 +130,11 @@ export default {
     this.MybuttonAnimationMove("wst_img_button_choose_English_words_Chicken","anyevent",-500,1);
     this.MybuttonAnimationMove("wst_img_button_choose_English_words_Cow","anyevent",500,1);
     this.MybuttonAnimationMove("wst_img_button_choose_English_words_Lion","anyevent",-500,1);
-    this.MybuttonAnimationMove("wst_img_button_choose_English_words_Forest","anyevent",240,1);
-    this.MybuttonAnimationMove("wst_img_button_choose_English_words_Lawn","anyevent",240,1);
+    this.MybuttonAnimationMove("wst_img_button_choose_English_words_Forest","anyevent",400,1);
+    this.MybuttonAnimationMove("wst_img_button_choose_English_words_Lawn","anyevent",400,1);
     this.MybuttonAnimationMove("wst_img_button_choose_English_words_Dance","anyevent",-500,1);
-    this.MybuttonAnimationMove("wst_img_button_choose_English_words_Sing","anyevent",240,1);
-    this.MybuttonAnimationMove("wst_img_button_choose_English_words_Play","anyevent",240,1);    
+    this.MybuttonAnimationMove("wst_img_button_choose_English_words_Sing","anyevent",400,1);
+    this.MybuttonAnimationMove("wst_img_button_choose_English_words_Play","anyevent",400,1);    
     //
   this.socket =new WebSocket('ws://127.0.0.1:8765');
   this.DATA_BUFFER='';
@@ -189,7 +189,6 @@ export default {
       }
     
       };  
-
   }
 }
 
@@ -197,11 +196,22 @@ export default {
 
 <style>
   .but{
-    
+    text-align: center;
   }
-   #img{
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    padding: 5px;
+   #AIGC{
+      border-radius:3px;
+      
+      box-shadow:rgba(0,0,0,0.15) 0 0 8px;
+      
+      background:#FBFBFB;
+      
+      border:2px solid #ddd;
+      
+      margin:10px auto;
+      
+      margin-left: 15px;
+      
+      padding:5px;
+      
    } 
 </style>
