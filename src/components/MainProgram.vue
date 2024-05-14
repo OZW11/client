@@ -1,15 +1,15 @@
 <template>
   <div class="but">
-    <Mybutton ref="chat_button" MyName='chat' MyEvent='chat' @chat="chat"/>
-    <Mybutton ref="wst_img_button" MyName='wst_img' v-if="buttonState" MyEvent="wst_img_buttonClick" @wst_img_buttonClick="chooseEnglishWord_character" />
+    <Mybutton ref="chat_button" MyName='互动聊天' MyEvent='chat' @chat="chat"/>
+    <Mybutton ref="wst_img_button" MyName='单词绘画' v-if="buttonState" MyEvent="wst_img_buttonClick" @wst_img_buttonClick="chooseEnglishWord_character" />
     <Mybutton ref="wst_img_button_choose_English_words_Chicken" v-if="buttonState" MyName='Chicken' MyEvent="chooseEnglishWord_character" @chooseEnglishWord_character="chooseEnglishWord_place('Chicken')"/>    
     <Mybutton ref="wst_img_button_choose_English_words_Cow" MyName='Cow' v-if="buttonState" MyEvent="chooseEnglishWord_character" @chooseEnglishWord_character="chooseEnglishWord_place('Cow')"/>    
     <Mybutton ref="wst_img_button_choose_English_words_Lion" MyName='Lion' v-if="buttonState" MyEvent="chooseEnglishWord_character" @chooseEnglishWord_character="chooseEnglishWord_place('Lion')"/>    
     <Mybutton ref="wst_img_button_choose_English_words_Forest" MyName='Forest' v-if="buttonState" MyEvent="chooseEnglishWord_place" @chooseEnglishWord_place="chooseEnglishWord_event('Forest')"/>    
     <Mybutton ref="wst_img_button_choose_English_words_Lawn" MyName='Lawn' v-if="buttonState" MyEvent="chooseEnglishWord_place" @chooseEnglishWord_place="chooseEnglishWord_event('Lawn')"/>   
     <Mybutton ref="wst_img_button_choose_English_words_Dance" MyName='Dance' v-if="buttonState" MyEvent="chooseEnglishWord_event" @chooseEnglishWord_event="chooseEnglishWord_final('Dance')"/>    
-    <Mybutton ref="wst_img_button_choose_English_words_Sing" MyName='Sing' v-if="buttonState" MyEvent="chooseEnglishWord_event" @chooseEnglishWord_event="chooseEnglishWord_final('Sing')"/>    
-    <Mybutton ref="wst_img_button_choose_English_words_Play" MyName='Play' v-if="buttonState" MyEvent="chooseEnglishWord_event" @chooseEnglishWord_event="chooseEnglishWord_final('Play')"/>  
+    <Mybutton ref="wst_img_button_choose_English_words_Smile" MyName='Smile' v-if="buttonState" MyEvent="chooseEnglishWord_event" @chooseEnglishWord_event="chooseEnglishWord_final('Smile')"/>    
+    <Mybutton ref="wst_img_button_choose_English_words_Walk" MyName='Walk' v-if="buttonState" MyEvent="chooseEnglishWord_event" @chooseEnglishWord_event="chooseEnglishWord_final('Walk')"/>  
     <img id='AIGC' v-if="Myimg.state" :src="Myimg.url"  alt="NONE" width="300" height="300">
   </div>
 </template>
@@ -109,16 +109,16 @@ export default {
       this.MybuttonAnimationMove("wst_img_button_choose_English_words_Forest","anyevent",-300,600);
       this.MybuttonAnimationMove("wst_img_button_choose_English_words_Lawn","anyevent",400,500);
       this.MybuttonAnimationMove("wst_img_button_choose_English_words_Dance","anyevent",-20,400);
-      this.MybuttonAnimationMove("wst_img_button_choose_English_words_Sing","anyevent",35,600);
-      this.MybuttonAnimationMove("wst_img_button_choose_English_words_Play","anyevent",10,400);   
+      this.MybuttonAnimationMove("wst_img_button_choose_English_words_Smile","anyevent",35,600);
+      this.MybuttonAnimationMove("wst_img_button_choose_English_words_Walk","anyevent",10,400);   
     },
     chooseEnglishWord_final: function(mess){
       this.img_mess['event'] = mess;
       console.log(this.img_mess['event']);
       this.MybuttonAnimationMove("wst_img_button_choose_English_words_Dance","anyevent",400,700);
-      this.MybuttonAnimationMove("wst_img_button_choose_English_words_Sing","anyevent",-300,500);
-      this.MybuttonAnimationMove("wst_img_button_choose_English_words_Play","anyevent",400,400);   
-      let StringSend="用一下关键词画一幅小朋友喜欢的画 "+this.img_mess['character'] +" "+this.img_mess['place']+" "+this.img_mess['event'];
+      this.MybuttonAnimationMove("wst_img_button_choose_English_words_Smile","anyevent",-300,500);
+      this.MybuttonAnimationMove("wst_img_button_choose_English_words_Walk","anyevent",400,400);   
+      let StringSend="用以下关键词画一幅小朋友喜欢的画 可爱"+this.img_mess['character'] +" "+this.img_mess['place']+" "+this.img_mess['event'];
       console.log(StringSend);
       this.wst_img(StringSend);
     }
@@ -133,8 +133,8 @@ export default {
     this.MybuttonAnimationMove("wst_img_button_choose_English_words_Forest","anyevent",400,1);
     this.MybuttonAnimationMove("wst_img_button_choose_English_words_Lawn","anyevent",400,1);
     this.MybuttonAnimationMove("wst_img_button_choose_English_words_Dance","anyevent",-500,1);
-    this.MybuttonAnimationMove("wst_img_button_choose_English_words_Sing","anyevent",400,1);
-    this.MybuttonAnimationMove("wst_img_button_choose_English_words_Play","anyevent",400,1);    
+    this.MybuttonAnimationMove("wst_img_button_choose_English_words_Smile","anyevent",400,1);
+    this.MybuttonAnimationMove("wst_img_button_choose_English_words_Walk","anyevent",400,1);    
     //
   this.socket =new WebSocket('ws://127.0.0.1:8765');
   this.DATA_BUFFER='';
